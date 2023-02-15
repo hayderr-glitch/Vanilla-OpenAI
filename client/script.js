@@ -1,23 +1,41 @@
-import './style.css'
-import javascriptLogo from './javascript.svg'
-import { setupCounter } from './counter.js'
+import { bot } from './assets/bot.svg';
+import { user } from './assets/user.svg';
 
-document.querySelector('#app').innerHTML = `
-  <div>
-    <a href="https://vitejs.dev" target="_blank">
-      <img src="/vite.svg" class="logo" alt="Vite logo" />
-    </a>
-    <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript" target="_blank">
-      <img src="${javascriptLogo}" class="logo vanilla" alt="JavaScript logo" />
-    </a>
-    <h1>Hello Vite!</h1>
-    <div class="card">
-      <button id="counter" type="button"></button>
-    </div>
-    <p class="read-the-docs">
-      Click on the Vite logo to learn more
-    </p>
-  </div>
-`
+const form = document.querySelector('form');
+const chatContainer = document.querySelector('#chat_container');
 
-setupCounter(document.querySelector('#counter'))
+// Code for loading dots.
+let loadInterval;
+
+function loader(element) {
+  element.textContent = '';
+
+  loadInterval = setInterval(() => {
+    element.textContent += '.';
+
+    if (element.textContent === '....') {
+      element.textContent = '';
+    }
+  }, 300);
+}
+// Code for single character typing.
+function typeText(element, text) {
+  let index = 0;
+
+  let interval = setInterval(() => {
+    if (index < text.length) {
+      element.innerHTML += Text.chartAt(index);
+      index++;  
+    }else {
+      clearInterval(interval);
+    }
+  }, 20);
+}
+
+function generateUniqueId() {
+  const timestamp = Date.now();
+  const randomNumber = Math.random();
+  const hexadecimalString = randomNumber.toString(16);
+
+  return 'id-${timestamp}-${hexadecimalString}';
+}
